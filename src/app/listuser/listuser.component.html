@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+        <h2>List User</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>gender</th>
+                    <th>email</th>
+                    <th>image</th>
+                    <th>description</th>
+                    <th>edit</th>
+                    <th>delete</th>
+                </tr>
+            </thead>
+         
+            <tbody>
+                <tr *ngFor="let user of results.data">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.gender}}</td>
+                    <td>{{user.email}}</td>
+                    <td><img src="{{user.image}}" alt="" width="30px" height="30px"></td>
+                    <td>{{user.description}}</td>
+                    <td><button>Edit</button></td>
+                    <td><button>Delete</button></td>
+                </tr>
+            </tbody>
+        </table>
+        
+    </div>
+  </div>
+</div>

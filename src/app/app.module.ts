@@ -11,6 +11,9 @@ import { HomeComponent } from './home/home.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import {LoginService} from './services/login.service';
 import {CheckLoginGuard} from './guards/check-login.guard';
+import { NavbarComponent } from './navbar/navbar.component';
+import { NotfoundComponent } from './notfound/notfound.component';
+import { ListuserComponent } from './listuser/listuser.component';
  
 @NgModule({
   declarations: [
@@ -18,7 +21,10 @@ import {CheckLoginGuard} from './guards/check-login.guard';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    SidebarComponent
+    SidebarComponent,
+    NavbarComponent,
+    NotfoundComponent,
+    ListuserComponent
   ],
   imports: [
     BrowserModule,

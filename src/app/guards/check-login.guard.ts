@@ -4,7 +4,7 @@ import { LoginService } from 'src/app/services/login.service';
 
 @Injectable()
 export class CheckLoginGuard implements CanActivate {
-    constructor (private loginService: LoginService){}
+    constructor(private loginService: LoginService){}
     canActivate() {
         let status = this.loginService.IsLogged();
         if (status==false) {

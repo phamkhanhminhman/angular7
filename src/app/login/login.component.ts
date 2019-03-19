@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-login',
@@ -15,10 +16,11 @@ export class LoginComponent implements OnInit {
     password: null
   };
   public error = null;
-  constructor(private http: HttpClient, 
+  constructor(private http: HttpClient,
               private router: Router,
               private loginService: LoginService,
-              ) { }
+              private httpService: HttpService,
+  ) { }
 
   ngOnInit() {
   }
@@ -30,7 +32,8 @@ export class LoginComponent implements OnInit {
     );
   }
   handleResponse(data) {
-    if (data.message === 'Login thành công'){
+    if (data.message === 'Login thành công') {
+      localStorage.setItem('token', data.data[0].api_token);
       this.loginService.SetLogin(true);
       this.router.navigateByUrl('/home');
       console.log(data);

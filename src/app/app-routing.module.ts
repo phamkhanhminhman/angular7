@@ -5,13 +5,17 @@ import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import {CheckLoginGuard} from './guards/check-login.guard';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { EdituserComponent } from './edituser/edituser.component';
+import { ListuserComponent } from './listuser/listuser.component';
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '',  component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'home', component: HomeComponent, canActivate: [CheckLoginGuard]},
-  {path: '**', component: NotfoundComponent}
+  {path: 'home', component: HomeComponent, canActivate:[CheckLoginGuard]},
+  {path: 'list', component: ListuserComponent, canActivate:[CheckLoginGuard]},
+  {path: 'edit', component: EdituserComponent},
+  {path: '**', component: NotfoundComponent},
 
 ];
 

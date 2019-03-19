@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { HttpService } from 'src/app/services/http.service';
 
 @Component({
   selector: 'app-register',
@@ -15,20 +16,16 @@ export class RegisterComponent implements OnInit {
     description: null,
     password: null,
   };
-  public error=null
-  constructor(private http: HttpClient, private router: Router) { }
+  public error = null;
+  constructor(private http: HttpClient, private router: Router, private httpService: HttpService) { }
 
   ngOnInit() {
   }
   onSubmit() {
     console.log(this.form);
-    return this.http.post('http://127.0.0.1:8000/api/users', this.form).subscribe(
-      data => this.handleResponse(data),
-      error => console.log(error), 
-    )
+    return this.httpService.addUser(this.form);
   }
   onFileChange(event) {
-  
   }
   handleResponse(data) {
     this.router.navigateByUrl('/login')

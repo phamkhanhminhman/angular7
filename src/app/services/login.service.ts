@@ -1,26 +1,30 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private loggedIn = new BehaviorSubject<boolean>(false);
-  public isLoggedIn: boolean;
-  public token: string = localStorage.getItem('token');
-  IsLogged(): boolean {
-      return this.isLoggedIn;
+  public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  get isLoggedIn() {
+    return this.loggedIn.asObservable();
   }
+ 
+  // public isLoggedIn: boolean;
+  // public token: string = localStorage.getItem('token');
+  // IsLogged(): boolean {
+  //     return this.isLoggedIn;
+  // }
 
-  SetLogin(isLoggedIn: boolean) {
-      this.isLoggedIn = isLoggedIn;
-  }
+  // SetLogin(isLoggedIn: boolean) {
+  //     this.isLoggedIn = isLoggedIn;
+  // }
   getToken(): string {
     return localStorage.getItem('token');
   }
-  get isLoggeIn() {
-    return this.loggedIn.asObservable(); // {2}
-  }
 
-  constructor() { }
+
+  constructor(private router: Router) { }
+
 }
 

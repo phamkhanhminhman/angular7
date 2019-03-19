@@ -7,12 +7,11 @@ import { LoginService } from 'src/app/services/login.service';
   styleUrls: ['./sidebar.component.css']
 })
 export class SidebarComponent implements OnInit {
-  public userLogin: boolean;
   isLoggedIn$: Observable<boolean>;
   constructor(private loginService: LoginService) { }
 
   ngOnInit() {
-    this.isLoggedIn$ = this.loginService.isLoggeIn;
+    this.isLoggedIn$ = this.loginService.isLoggedIn;
   }
 
 }

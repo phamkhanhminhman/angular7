@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
   handleResponse(data) {
     if (data.message === 'Login thành công') {
       localStorage.setItem('token', data.data[0].api_token);
-      this.loginService.SetLogin(true);
+     // this.loginService.SetLogin(true);
+      this.loginService.loggedIn.next(true);
       this.router.navigateByUrl('/home');
       console.log(data);
     } else {

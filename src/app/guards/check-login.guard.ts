@@ -1,22 +1,24 @@
-import { CanActivate } from '@angular/router';
+
 import { Injectable } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 
 @Injectable()
 export class CheckLoginGuard implements CanActivate {
 
     constructor(private loginService: LoginService, private router: Router, ) { }
-    canActivate() {
-        let status = this.loginService.IsLogged();
-        // if (status == false) {
-        //     alert('You dont have permission access');
-        // }
-        if (status || localStorage.getItem('token') !== null) {
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+        return this.loginService.isLoggedIn.pipe(
+          take(1),
+          map((isLoggedIn: boolean) => {
+            if (!isLoggedIn) {
+              this.router.navigate(['/login']);
+              return false;
+            }
             return true;
-        } else {
-            this.router.navigateByUrl('/login');
-            return false;
-        }
-    }
+          })
+        );
+      }
 }

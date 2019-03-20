@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule,routingComponents } from './app-routing.module';
+import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
@@ -16,7 +16,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { ListuserComponent } from './listuser/listuser.component';
 import { EdituserComponent } from './edituser/edituser.component';
- 
+import { ChangepassComponent } from './changepass/changepass.component';
+import { ImportComponent } from './import/import.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,9 @@ import { EdituserComponent } from './edituser/edituser.component';
     NavbarComponent,
     NotfoundComponent,
     ListuserComponent,
-    EdituserComponent
+    EdituserComponent,
+    ChangepassComponent,
+    ImportComponent
   ],
   imports: [
     BrowserModule,

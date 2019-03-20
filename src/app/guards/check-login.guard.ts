@@ -9,7 +9,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 export class CheckLoginGuard implements CanActivate {
 
     constructor(private loginService: LoginService, private router: Router, ) { }
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    canActivate() {
         return this.loginService.isLoggedIn.pipe(
           take(1),
           map((isLoggedIn: boolean) => {

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn$: Observable<boolean>;
+  isLoggedIn$;
   constructor(private router: Router, private loginService: LoginService, ) { }
   public currentUser = null;
   ngOnInit() {

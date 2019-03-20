@@ -28,7 +28,7 @@
                         <td><img src="{{user.image}}" alt="" width="30px" height="30px"></td>
                         <td>{{user.description}}</td>
                         <td><a [routerLink]="['/edit',user.id]"  class="btn btn-warning"><i class="fa fa-edit"></i></a></td>
-                        <td><button class="btn btn-danger" (click)="editUser(user)"><i class="fa fa-times"></i></button></td>
+                        <td><a class="btn btn-danger" (click) = "deleteUser(user.id)" ><i class="fa fa-times"></i></a></td>
                     </tr>
                 </tbody>
             </table>

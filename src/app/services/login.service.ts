@@ -7,9 +7,8 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class LoginService {
   public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   get isLoggedIn() {
-    return this.loggedIn.asObservable();
+    return this.loggedIn;
   }
- 
   // public isLoggedIn: boolean;
   // public token: string = localStorage.getItem('token');
   // IsLogged(): boolean {
@@ -19,11 +18,6 @@ export class LoginService {
   // SetLogin(isLoggedIn: boolean) {
   //     this.isLoggedIn = isLoggedIn;
   // }
-  getToken(): string {
-    return localStorage.getItem('token');
-  }
-
-
   constructor(private router: Router) { }
 
 }

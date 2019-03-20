@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
     description: null,
     password: null,
   };
+  public imagePath;
+  imgURL: any;
   public error = null;
   url = 'http://127.0.0.1:8000/api/users';
   constructor(private http: HttpClient, private router: Router, private httpService: HttpService) { }
@@ -40,5 +42,19 @@ export class RegisterComponent implements OnInit {
   }
   handleError(error) {
     this.error = error.error.error;
+  }
+  preview(files) {
+    let reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    console.log(files[0]);
+    // this.form.image = files[0];
+    // console.log(this.form.image);
+    
+    reader.onload = (event) => { 
+      this.imgURL = reader.result;
+    }
+    console.log(files);
+    
   }
 }

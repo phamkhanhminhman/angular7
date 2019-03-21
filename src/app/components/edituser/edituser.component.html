@@ -7,18 +7,6 @@
                     {{error}}
                 </div>
                 <div class="form-group row">
-                    <label for="" class="col-sm-2 col-form-label">Email</label>
-                    <div class="col-8">
-                        <input type="email" name="email" class="form-control" placeholder="{{user.email}}"
-                            [(ngModel)]="form.email" #email="ngModel" required minlength="3" email>
-                        <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
-                            <div [hidden]="!email.errors.required">Email is Required</div>
-                            <div [hidden]="!email.errors.minlength">More than 3 characters</div>
-                            <div [hidden]="!email.errors.email">Pls enter valid email address</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-8">
                         <input type="text" name="name" class="form-control" placeholder="{{user.name}}"
@@ -54,7 +42,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-4 offset-2">
-                        <button type="submit" class="btn btn-success" [disabled]=!loginForm.valid>Update</button>
+                        <button type="submit" class="btn btn-success" >Update</button>
                         <a routerLink="/list" class="btn btn-info float-right">Cancel</a>
                     </div>
                 </div>

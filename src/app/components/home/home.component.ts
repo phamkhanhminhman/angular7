@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { config } from 'src/app/config';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
+    console.log(config.url);
   }
 
 }

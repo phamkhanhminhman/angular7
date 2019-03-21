@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { HttpService } from 'src/app/services/http.service';
+import { config } from 'src/app/config';
 @Component({
   selector: 'app-edituser',
   templateUrl: './edituser.component.html',
@@ -11,43 +12,45 @@ export class EdituserComponent implements OnInit {
   id;
   results;
   public error = null;
-  apiToken = localStorage.getItem('token');
-  url = 'http://127.0.0.1:8000/api/users/';
   public form = {
     email: null,
     name: null,
     gender: 1,
     description: null,
   };
-  constructor(private route: ActivatedRoute, private http: HttpClient, private httpService: HttpService, private router: Router) { }
-
+  constructor(private route: ActivatedRoute,
+              private http: HttpClient,
+              private httpService: HttpService,
+              private router: Router) { }
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     console.log('id nhan dc: ' + this.id);
-    // return this.http.get(this.url + this.id, {headers: {token: this.apiToken}}).subscribe(
-    //   data => this.handleResponse(data),
-    //   error => this.handleError(error)
-    // );
-    this.httpService.getUser(this.id).subscribe(
+    this.httpService.get(config.userUrl + this.id).subscribe(
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
     console.log(this.results);
+  }
+  onSubmit() {
+    console.log(this.form);
+    return this.httpService.update(config.userUrl + this.id, this.form).subscribe(
+      data => this.updateResponse(data),
+    );
   }
   handleResponse(data) {
     console.log(data);
     this.results = data['data'];
     console.log(this.results);
   }
-  handleError(error) {
-    this.error = error.error.error;
+  updateResponse(data) {
+    if (data.message === 'Cập nhật thành công') {
+      alert(data.message);
+      this.router.navigateByUrl('/list');
+    } else {
+      alert(data.message);
+    }
   }
-  onSubmit() {
-    console.log(this.form);
-    alert('Updated');
-    this.router.navigateByUrl('/list');
-    return this.http.put(this.url + this.id, this.form).subscribe(
-      data => this.handleResponse(data),
-    );
+  handleError(error) {
+    this.error = error.message;
   }
 }

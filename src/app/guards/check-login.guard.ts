@@ -1,9 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
-import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { CanActivate, Router} from '@angular/router';
 
 @Injectable()
 export class CheckLoginGuard implements CanActivate {

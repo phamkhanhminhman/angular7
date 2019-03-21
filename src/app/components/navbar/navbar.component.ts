@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class NavbarComponent implements OnInit {
   isLoggedIn$;
+  results;
   constructor(private router: Router, private loginService: LoginService, ) { }
   public currentUser = null;
   ngOnInit() {

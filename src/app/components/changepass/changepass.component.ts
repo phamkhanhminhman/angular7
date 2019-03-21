@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Router} from '@angular/router';
+import { HttpClient} from '@angular/common/http';
 import { HttpService } from 'src/app/services/http.service';
+import { config } from 'src/app/config';
 @Component({
   selector: 'app-changepass',
   templateUrl: './changepass.component.html',
@@ -15,14 +16,13 @@ export class ChangepassComponent implements OnInit {
   };
   public error;
   constructor(private http: HttpClient, private httpService: HttpService, private router: Router) { }
-
   ngOnInit() {
   }
   onSubmit() {
     if (this.form.new_pass !== this.form.confirm) {
       alert('Mật khẩu xác nhận ko trùng mk mới');
     } else {
-      this.httpService.updatePass(this.form).subscribe(
+      this.http.put(config.userUrl, this.form, this.httpService.handleHeader()).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error)
       );
@@ -37,8 +37,6 @@ export class ChangepassComponent implements OnInit {
       alert(data.message);
       this.router.navigateByUrl('/home');
     }
-    // this.results = data['data'];
-    // console.log(this.results);
   }
   handleError(error) {
     this.error = error.error.error;

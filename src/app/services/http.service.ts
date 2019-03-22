@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { config } from 'src/app/config';
-
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError} from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
   id;
   results;
-  constructor(private http: HttpClient) {
+  data;
+  constructor(private http: HttpClient, private router: Router) {
   }
   handleHeader() {
     return {
@@ -17,13 +19,8 @@ export class HttpService {
       })
     };
   }
-  get(url) {
-    this.results = this.http.get(url, this.handleHeader());
-    this.http.get(url, this.handleHeader()).subscribe(data => this.handleResponse(data), err => this.handleError(err));
-    return this.results;
-  }
-  test() {
-    return this.http.get(config.userUrl, this.handleHeader());
+  get(url)  {
+    return this.http.get(url, this.handleHeader()).pipe(catchError(this.handleError));
   }
   add(url, data) {
     return this.http.post(url, data);
@@ -34,11 +31,15 @@ export class HttpService {
   delete(url) {
     return this.http.delete(url, this.handleHeader());
   }
-  handleResponse(data) {
-    console.log(data.message);
-  }
-  handleError(error) {
-    console.log(error.message);
+  handleError(error: HttpErrorResponse) {
+    if (error.error instanceof ErrorEvent) {
+      // A client-side or network error occurred
+      console.error('An error occurred:', error.error.message);
+    } else {
+      console.error('Error status code: ' + error.status);
+    }
+    return throwError(
+      'try again later.');
   }
 
 }

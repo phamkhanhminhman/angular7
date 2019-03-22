@@ -21,7 +21,6 @@ export class ImportComponent implements OnInit {
     console.log(this.fileData);
     const formData = new FormData();
     formData.append('excel', this.fileData);
-    
     this.http.post(config.url + 'import', formData, this.httpService.handleHeader())
       .subscribe(res => {
         console.log(res);

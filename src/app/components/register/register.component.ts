@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { config } from 'src/app/config';
@@ -13,15 +12,15 @@ export class RegisterComponent implements OnInit {
   public form = {
     email: null,
     name: null,
-    gender: null,
+    gender: 0,
     description: null,
     password: null,
+    image: File = null,
   };
-  public imagePath;
-  imgURL: any;
+
+  imgURL;
   public error = null;
-  url = 'http://127.0.0.1:8000/api/users';
-  constructor(private http: HttpClient, private router: Router, private httpService: HttpService) { }
+  constructor(private router: Router, private httpService: HttpService) { }
   ngOnInit() {
   }
   onSubmit() {
@@ -36,25 +35,22 @@ export class RegisterComponent implements OnInit {
       alert(data.message);
     } else {
       alert(data.message);
+      console.log(data.message);
       this.router.navigateByUrl('/login');
     }
-    // this.router.navigateByUrl('/login');
   }
   handleError(error) {
     this.error = error.error.error;
   }
   preview(files) {
-    let reader = new FileReader();
-    this.imagePath = files;
-    reader.readAsDataURL(files[0]); 
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0]);
     console.log(files[0]);
-    // this.form.image = files[0];
-    // console.log(this.form.image);
-    
-    reader.onload = (event) => { 
+    // preview image
+    reader.onload = (event) => {
       this.imgURL = reader.result;
-    }
+    };
+    // this.form.image = files[0];
     console.log(files);
-    
   }
 }

@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'list', component: ListuserComponent, canActivate: [CheckLoginGuard]},
   {path: 'edit/:id', component: EdituserComponent, canActivate: [CheckLoginGuard]},
   {path: 'changepass', component: ChangepassComponent, canActivate: [CheckLoginGuard]},
-  {path: 'import', component: ImportComponent},
+  {path: 'import', component: ImportComponent, canActivate: [CheckLoginGuard]},
   {path: '**', component: NotfoundComponent},
 
 ];

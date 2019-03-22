@@ -31,12 +31,13 @@ export class LoginComponent implements OnInit {
   }
   handleResponse(data) {
     if (data.message === 'Login thành công') {
+      alert(data.message);
       localStorage.setItem('token', data.data[0].api_token);
       this.loginService.loggedIn.next(true);
       this.router.navigateByUrl('/home');
       console.log(data);
     } else {
-      console.log(data);
+      alert(data.message);
     }
   }
   handleError(error) {

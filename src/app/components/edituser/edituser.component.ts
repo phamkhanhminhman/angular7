@@ -15,7 +15,7 @@ export class EdituserComponent implements OnInit {
   public form = {
     email: null,
     name: null,
-    gender: 1,
+    gender: 0,
     description: null,
   };
   constructor(private route: ActivatedRoute,

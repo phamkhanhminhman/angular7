@@ -19,8 +19,9 @@ export class HttpService {
       })
     };
   }
-  get(url)  {
-    return this.http.get(url, this.handleHeader()).pipe(catchError(this.handleError));
+  get(url): Observable<any>  {
+    return this.http.get<any>(url, this.handleHeader())
+    // .pipe(catchError(this.handleError));
   }
   add(url, data) {
     return this.http.post(url, data);
@@ -31,15 +32,17 @@ export class HttpService {
   delete(url) {
     return this.http.delete(url, this.handleHeader());
   }
-  handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // A client-side or network error occurred
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error('Error status code: ' + error.status);
-    }
-    return throwError(
-      'try again later.');
-  }
+  // handleError(error) {
+  //   let errorMessage = '';
+  //   if (error.error instanceof ErrorEvent) {
+  //     // client-side error
+  //     errorMessage = `Error: ${error.error.message}`;
+  //   } else {
+  //     // server-side error
+  //     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+  //   }
+  //   window.alert(errorMessage);
+  //   return throwError(errorMessage);
+  // }
 
 }

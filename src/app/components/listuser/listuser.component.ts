@@ -17,7 +17,6 @@ export class ListuserComponent implements OnInit {
   ngOnInit() {
     this.httpService.get(config.userUrl).subscribe(
       data => this.handleResponse(data),
-      error => this.handleError(error)
     );
   }
   handleResponse(data) {

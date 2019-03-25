@@ -18,29 +18,27 @@ export class HttpIntercept implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
                 if (error instanceof HttpErrorResponse) {
-                  // client-side error
                     console.log(error.status);
                     switch (error.status) {
                       case this.BadRequest :
-                        console.log(error.message);
+                        alert(error.message);
+                        this.router.navigateByUrl('/400');
                         break;
                       case this.Unauthorized :
-                        console.log(error.message);
+                        alert(error.message);
+                        this.router.navigateByUrl('/401');
                         break;
                       case this.InternalServerError :
-                        console.log(error.message);
+                        alert(error.message);
+                        this.router.navigateByUrl('/500');
                         break;
                       case 0 :
-                        console.log('0000000');
+                        alert(error.message);
+                        this.router.navigateByUrl('/400');
                         break;                    }
                     return throwError(error.message);
-                } else {
-                  // server-side error
-                    alert(error);
-                    return throwError(error);
                 }
             })
-        )
+        );
     }
-
 }

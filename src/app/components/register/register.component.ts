@@ -11,14 +11,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  // public form = {
-  //   email: null,
-  //   name: null,
-  //   gender: 0,
-  //   description: null,
-  //   password: null,
-  //   image: File
-  // };
   email = null ;
   name = null;
   password = null;
@@ -27,7 +19,6 @@ export class RegisterComponent implements OnInit {
   description = null;
   image = null;
   imgURL;
- 
   public error = null;
   registerForm: FormGroup;
   submitted = false;
@@ -43,10 +34,7 @@ export class RegisterComponent implements OnInit {
 }
 get f() { return this.registerForm.controls; }
   onSubmit() {
-    
     this.submitted = true;
-
-        // stop here if form is invalid
     if (this.registerForm.invalid) {
             return ;
     } else {
@@ -56,15 +44,11 @@ get f() { return this.registerForm.controls; }
       formData.append('password', this.password);
       formData.append('gender', this.gender);
       formData.append('image', this.image);
-      console.log(this.email);
-      console.log(this.name);
-      console.log(this.password);
-      console.log(this.gender);
+      return this.httpService.add(config.userUrl, formData).subscribe(
+        data => this.handleResponse(data),
+        error => this.handleError(error)
+      );
     }
-    return this.httpService.add(config.userUrl, formData).subscribe(
-      data => this.handleResponse(data),
-      error => this.handleError(error)
-    );
   }
   handleResponse(data) {
     if (data.message === 'Email đăng ký đã bị trùng') {

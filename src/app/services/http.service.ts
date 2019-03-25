@@ -19,8 +19,8 @@ export class HttpService {
       })
     };
   }
-  get(url): Observable<any>  {
-    return this.http.get<any>(url, this.handleHeader())
+  get(url) {
+    return this.http.get(url, this.handleHeader());
     // .pipe(catchError(this.handleError));
   }
   add(url, data) {
@@ -31,6 +31,9 @@ export class HttpService {
   }
   delete(url) {
     return this.http.delete(url, this.handleHeader());
+  }
+  search(url, data) {
+    return this.http.post(url, data, this.handleHeader());
   }
   // handleError(error) {
   //   let errorMessage = '';

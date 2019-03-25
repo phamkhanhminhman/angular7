@@ -3,11 +3,15 @@
     <div class="row">
         <div class="col-6">
             <h2>List User</h2>
+                <form action="" method="post">
+                <label for="">Search</label>
+                <input type="text" class="form-control" name="searchText" [(ngModel)]="searchText" (keyup)="handleSearch()" placeholder="Tim kiem theo name, email">
+            </form>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>id</th>
-                        <th>name</th>
+                        <th (click)="sortName()">name <i class="fa fa-sort"></i></th>
                         <th>gender</th>
                         <th>email</th>
                         <th>image</th>
@@ -17,7 +21,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let user of results">
+                    <tr *ngFor="let user of pagedItems">    
                         <td>{{user.id}}</td>
                         <td>{{user.name}}</td>
                         <td>
@@ -32,6 +36,24 @@
                     </tr>
                 </tbody>
             </table>
+            <!-- pager -->
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(1)" class="btn btn-light">First</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a (click)="setPage(pager.currentPage - 1)" class="btn btn-secondary">Previous</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a (click)="setPage(page)" >{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.currentPage + 1)" class="btn btn-light">Next</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a (click)="setPage(pager.totalPages)" class="btn btn-light">Last</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div> 

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import {HttpClientModule,HTTP_INTERCEPTORS} from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import {LoginService} from './services/login.service';
@@ -31,7 +31,7 @@ import {HttpIntercept} from './interceptor/http.interceptor';
     ListuserComponent,
     EdituserComponent,
     ChangepassComponent,
-    ImportComponent
+    ImportComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +40,7 @@ import {HttpIntercept} from './interceptor/http.interceptor';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [LoginService, CheckLoginGuard, HttpService,{provide: HTTP_INTERCEPTORS, useClass: HttpIntercept, multi: true}],
+  providers: [LoginService, CheckLoginGuard, HttpService, {provide: HTTP_INTERCEPTORS, useClass: HttpIntercept, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

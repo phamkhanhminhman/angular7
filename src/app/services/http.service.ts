@@ -1,16 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError} from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  id;
   results;
   data;
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient) {
   }
   handleHeader() {
     return {
@@ -24,16 +20,13 @@ export class HttpService {
     // .pipe(catchError(this.handleError));
   }
   add(url, data) {
-    return this.http.post(url, data);
+    return this.http.post(url, data, this.handleHeader());
   }
   update(url, data) {
     return this.http.put(url, data, this.handleHeader());
   }
   delete(url) {
     return this.http.delete(url, this.handleHeader());
-  }
-  search(url, data) {
-    return this.http.post(url, data, this.handleHeader());
   }
   // handleError(error) {
   //   let errorMessage = '';

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
 import { config } from 'src/app/config';
+import { HttpClient } from '@angular/common/http';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -22,7 +23,7 @@ export class RegisterComponent implements OnInit {
   public error = null;
   registerForm: FormGroup;
   submitted = false;
-  constructor(private router: Router, private httpService: HttpService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private http: HttpClient, private formBuilder: FormBuilder) { }
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -44,7 +45,7 @@ get f() { return this.registerForm.controls; }
       formData.append('password', this.password);
       formData.append('gender', this.gender);
       formData.append('image', this.image);
-      return this.httpService.add(config.userUrl, formData).subscribe(
+      return this.http.post(config.userUrl, formData).subscribe(
         data => this.handleResponse(data),
         error => this.handleError(error)
       );
@@ -60,7 +61,7 @@ get f() { return this.registerForm.controls; }
     }
   }
   handleError(error) {
-    console.log(error);
+    console.log('aaa');
   }
   preview(files) {
     const reader = new FileReader();

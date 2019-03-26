@@ -10,17 +10,16 @@
                     <label for="" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-8">
                         <input type="text" name="name" class="form-control" placeholder="{{user.name}}"
-                            [(ngModel)]="form.name" #name="ngModel" required minlength="3">
+                            [(ngModel)]="form.name" #name="ngModel" required>
                         <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
                             <div [hidden]="!name.errors.required">Name is Required</div>
-                            <div [hidden]="!name.errors.minlength">More than 3 characters</div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Gender</label>
                     <div class="col-8">
-                        <select class="form-control" name="gender" [(ngModel)]="user.gender">Gender
+                        <select class="form-control" name="gender" [(ngModel)]="form.gender">Gender
                             <option value="0">Male</option>
                             <option value="1">Female</option>
                         </select>

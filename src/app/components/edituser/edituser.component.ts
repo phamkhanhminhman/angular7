@@ -32,7 +32,6 @@ export class EdituserComponent implements OnInit {
     console.log(this.results);
   }
   onSubmit() {
-    console.log(this.form);
     return this.httpService.update(config.userUrl + this.id, this.form).subscribe(
       data => this.updateResponse(data),
     );
@@ -47,7 +46,7 @@ export class EdituserComponent implements OnInit {
       alert(data.message);
       this.router.navigateByUrl('/list');
     } else {
-      alert(data.message);
+      console.log(data.message);
     }
   }
   handleError(error) {

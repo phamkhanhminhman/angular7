@@ -37,12 +37,13 @@ export class ListuserComponent implements OnInit {
   setPage(page: number) {
     // get pager object from service
     this.pager = this.pagerService.getPager(this.allItems.length, page);
+    console.log('pager ' + this.pager.pages);
     // get current page of items
     this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   handleError(error) {
     this.error = error.message;
-    this.router.navigateByUrl('/zzz');
+    this.router.navigateByUrl('/err');
   }
   deleteUser(id) {
     if (confirm('Are you sure delete id =  ' + id)) {

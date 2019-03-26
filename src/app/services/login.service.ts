@@ -4,7 +4,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class LoginService {
-  public loggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public loggedIn: BehaviorSubject<any> = new BehaviorSubject<any>(localStorage.getItem('token'));
   data;
   get isLoggedIn() {
     return this.loggedIn;

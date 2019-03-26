@@ -11,7 +11,7 @@ export class CheckLoginGuard implements CanActivate {
     canActivate() {
         return this.loginService.isLoggedIn.pipe(
           take(1),
-          map((isLoggedIn: boolean) => {
+          map((isLoggedIn: string) => {
             if (!isLoggedIn) {
               this.router.navigate(['/login']);
               return false;

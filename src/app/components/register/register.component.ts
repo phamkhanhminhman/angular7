@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  email = null ;
+  email = null;
   name = null;
   password = null;
   test = null;
@@ -31,13 +31,13 @@ export class RegisterComponent implements OnInit {
       image: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
-  });
-}
-get f() { return this.registerForm.controls; }
+    });
+  }
+  get f() { return this.registerForm.controls; }
   onSubmit() {
     this.submitted = true;
     if (this.registerForm.invalid) {
-            return ;
+      return;
     } else {
       const formData = new FormData();
       formData.append('email', this.email);
@@ -72,6 +72,6 @@ get f() { return this.registerForm.controls; }
       this.imgURL = reader.result;
     };
     this.image = files[0];
-   // console.log(this.form.image);
+    // console.log(this.form.image);
   }
 }

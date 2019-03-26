@@ -13,7 +13,7 @@
                         <th>id</th>
                         <th (click)="sortName()">name <i class="fa fa-sort"></i></th>
                         <th>gender</th>
-                        <th>email</th>
+                        <th>email </th>
                         <th>image</th>
                         <th>description</th>
                         <th>edit</th>
@@ -23,7 +23,7 @@
                 <tbody>
                     <tr *ngFor="let user of pagedItems">    
                         <td>{{user.id}}</td>
-                        <td>{{user.name}}</td>
+                        <td>{{user.name}} </td>
                         <td>
                             <div *ngIf="user.gender==0">Male</div>
                             <div *ngIf="user.gender==1">Female</div>

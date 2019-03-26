@@ -33,6 +33,7 @@ export class LoginComponent implements OnInit {
     if (data.message === 'Login thành công') {
       alert(data.message);
       localStorage.setItem('token', data.data[0].api_token);
+      sessionStorage.setItem('token', data.data[0].api_token);
       this.loginService.loggedIn.next(true);
       this.router.navigateByUrl('/home');
       console.log(data);

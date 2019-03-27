@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { config } from 'src/app/config/config';
 import { Router } from '@angular/router';
 import { system } from 'src/app/config/system';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -19,10 +18,12 @@ export class ListuserComponent implements OnInit {
   pageUrl = '&page=';
   pageSizeUrl = '&pageSize=';
   sortUrl = '&sort=';
+  orderBy = '';
+  URL = config.userUrl + config.queryUrl + config.pageSizeUrl + system.pageSize + this.sortUrl;
   id;
   length;
   currentPage;
-  searchText = null;
+  searchText = '';
   public error = null;
   // array of all items to be paged
   private allItems: any[];
@@ -33,7 +34,7 @@ export class ListuserComponent implements OnInit {
   submit = false;
   constructor(private httpService: HttpService, private router: Router, private pagerService: PagerService) { }
   get() {
-    this.httpService.get(config.userUrl + this.queryUrl + this.pageUrl + this.pageSizeUrl + system.pageSize).subscribe(
+    this.httpService.get(config.userUrl + config.queryUrl + this.pageUrl + this.pageSizeUrl + system.pageSize + this.sortUrl).subscribe(
       data => this.handleResponse(data),
     );
   }
@@ -42,6 +43,7 @@ export class ListuserComponent implements OnInit {
   }
   handleResponse(data) {
     this.allItems = data['data'];
+    console.log(this.allItems);
     this.length = data['length'];
     this.pager = this.pagerService.getPager(this.length, 1);
     // this.setPage(1);
@@ -53,9 +55,11 @@ export class ListuserComponent implements OnInit {
     // // get current page of items
     // this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
     this.currentPage = page;
-    this.httpService.get(config.userUrl + this.queryUrl + this.pageUrl + page + this.pageSizeUrl + system.pageSize).subscribe(
-      data => this.handlePagination(data, this.currentPage),
-    );
+// tslint:disable-next-line: max-line-length
+    this.httpService.get(config.userUrl + this.queryUrl + this.pageUrl + page + this.pageSizeUrl + system.pageSize + this.sortUrl + this.orderBy).
+      subscribe(
+        data => this.handlePagination(data, this.currentPage),
+      );
   }
   handlePagination(data, page) {
     this.allItems = data['data'];
@@ -77,8 +81,9 @@ export class ListuserComponent implements OnInit {
     if (this.searchText === '') {
       this.get();
     } else {
-      return this.httpService.get(config.userUrl + this.queryUrl + this.searchText + this.pageUrl + this.pageSizeUrl).subscribe(
-        data => this.searchPagination(data));
+      return this.httpService.get(config.userUrl + this.queryUrl + this.searchText + this.pageUrl + this.pageSizeUrl + this.sortUrl).
+        subscribe(
+          data => this.searchPagination(data));
     }
   }
   searchPagination(data) {
@@ -118,6 +123,27 @@ export class ListuserComponent implements OnInit {
     this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
   }
   sortGroup() {
+    this.submit = !this.submit;
+    if (this.submit) {
+      this.orderBy = 'asc';
+      // tslint:disable-next-line: max-line-length
+      this.httpService.get(config.userUrl + this.queryUrl + this.searchText + this.pageUrl + this.pageSizeUrl + system.pageSize + this.sortUrl + this.orderBy).
+        subscribe(
+          data => this.handleSort(data));
+          
+    } else {
+      this.orderBy = 'desc';
+      // tslint:disable-next-line: max-line-length
+      this.httpService.get(config.userUrl + this.queryUrl + this.searchText + this.pageUrl + this.pageSizeUrl + system.pageSize + this.sortUrl + this.orderBy).
+        subscribe(
+          data => this.handleSort(data));
+    }
+  }
+  handleSort(data) {
+    this.allItems = data['data'];
+    this.pager = this.pagerService.getPager(this.length, 1);
+  }
+  sortPage(data) {
     this.submit = !this.submit;
     if (this.submit) {
       this.allItems.sort((a, b) => {

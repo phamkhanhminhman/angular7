@@ -4,6 +4,8 @@ import { PagerService } from 'src/app/services/pager.service';
 import { HttpClient } from '@angular/common/http';
 import { config } from 'src/app/config/config';
 import { Router } from '@angular/router';
+import { system } from 'src/app/config/system';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -14,7 +16,12 @@ import { Router } from '@angular/router';
 })
 export class ListuserComponent implements OnInit {
   queryUrl = '?query=';
+  pageUrl = '&page=';
+  pageSizeUrl = '&pageSize=';
+  sortUrl = '&sort=';
   id;
+  length;
+  currentPage;
   searchText = null;
   public error = null;
   // array of all items to be paged
@@ -25,21 +32,35 @@ export class ListuserComponent implements OnInit {
   pagedItems: any[];
   submit = false;
   constructor(private httpService: HttpService, private router: Router, private pagerService: PagerService) { }
-  ngOnInit() {
-    this.httpService.get(config.userUrl + this.queryUrl).subscribe(
+  get() {
+    this.httpService.get(config.userUrl + this.queryUrl + this.pageUrl + this.pageSizeUrl + system.pageSize).subscribe(
       data => this.handleResponse(data),
     );
   }
+  ngOnInit() {
+    this.get();
+  }
   handleResponse(data) {
     this.allItems = data['data'];
-    this.setPage(1);
+    this.length = data['length'];
+    this.pager = this.pagerService.getPager(this.length, 1);
+    // this.setPage(1);
   }
   setPage(page: number) {
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.allItems.length, page);
-    console.log('pager ' + this.pager.pages);
-    // get current page of items
-    this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    // // get pager object from service
+    // this.pager = this.pagerService.getPager(this.length, page);
+    // console.log('pager ' + this.pager.pages);
+    // // get current page of items
+    // this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    this.currentPage = page;
+    this.httpService.get(config.userUrl + this.queryUrl + this.pageUrl + page + this.pageSizeUrl + system.pageSize).subscribe(
+      data => this.handlePagination(data, this.currentPage),
+    );
+  }
+  handlePagination(data, page) {
+    this.allItems = data['data'];
+    this.length = data['length'];
+    this.pager = this.pagerService.getPager(this.length, page);
   }
   handleError(error) {
     this.error = error.message;
@@ -48,17 +69,21 @@ export class ListuserComponent implements OnInit {
   deleteUser(id) {
     if (confirm('Are you sure delete id =  ' + id)) {
       return this.httpService.delete(config.userUrl + id).subscribe(
-        data => this.handleDelete(data),
+        data => this.get(),
       );
     }
   }
-  handleDelete(data) {
-    this.httpService.get(config.userUrl + this.queryUrl).subscribe(
-      x => this.handleResponse(x)
-    );
-  }
   handleSearch() {
-    return this.httpService.get(config.userUrl + this.queryUrl + this.searchText).subscribe(data => this.handleResponse(data));
+    if (this.searchText === '') {
+      this.get();
+    } else {
+      return this.httpService.get(config.userUrl + this.queryUrl + this.searchText + this.pageUrl + this.pageSizeUrl).subscribe(
+        data => this.searchPagination(data));
+    }
+  }
+  searchPagination(data) {
+    this.allItems = data['data'];
+    this.pager = this.pagerService.getPager(this.allItems.length);
   }
   sortName() {
     this.submit = !this.submit;
@@ -91,5 +116,17 @@ export class ListuserComponent implements OnInit {
     this.pager = this.pagerService.getPager(this.allItems.length, 1);
     // get current page of items
     this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
+  }
+  sortGroup() {
+    this.submit = !this.submit;
+    if (this.submit) {
+      this.allItems.sort((a, b) => {
+        return a.groupID - b.groupID;
+      });
+    } else {
+      this.allItems.sort((a, b) => {
+        return b.groupID - a.groupID;
+      });
+    }
   }
 }

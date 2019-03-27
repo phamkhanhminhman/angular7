@@ -15,7 +15,8 @@ export class EdituserComponent implements OnInit {
   public form = {
     email: null,
     name: null,
-    gender: 0,
+    gender: null,
+    groupID: null,
     description: null,
   };
   constructor(private route: ActivatedRoute,
@@ -32,6 +33,8 @@ export class EdituserComponent implements OnInit {
     console.log(this.results);
   }
   onSubmit() {
+    console.log(this.form.gender);
+    
     return this.httpService.update(config.userUrl + this.id, this.form).subscribe(
       data => this.updateResponse(data),
     );

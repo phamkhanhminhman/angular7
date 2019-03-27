@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { system } from '../config/system';
 
 @Injectable({
   providedIn: 'root'
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class PagerService {
 
   constructor() { }
-  getPager(totalItems: number, currentPage: number = 1, pageSize: number = 5) {
+  getPager(totalItems: number, currentPage: number = 1, pageSize: number = system.pageSize) {
     const totalPages = Math.ceil(totalItems / pageSize);
     if (currentPage < 1) {
               currentPage = 1;
@@ -15,7 +16,7 @@ export class PagerService {
     }
     let startPage: number;
     let endPage: number;
-    if (totalPages <= 10) {
+    if (totalPages <= system.totalPages) {
         // total page < 10 show all
         startPage = 1;
         endPage = totalPages;

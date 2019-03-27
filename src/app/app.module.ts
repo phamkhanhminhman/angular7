@@ -19,6 +19,7 @@ import { EdituserComponent } from './components/edituser/edituser.component';
 import { ChangepassComponent } from './components/changepass/changepass.component';
 import { ImportComponent } from './components/import/import.component';
 import {HttpIntercept} from './interceptor/http.interceptor';
+import { ProfileComponent } from './components/profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +33,7 @@ import {HttpIntercept} from './interceptor/http.interceptor';
     EdituserComponent,
     ChangepassComponent,
     ImportComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,

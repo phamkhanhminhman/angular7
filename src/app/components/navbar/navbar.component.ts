@@ -18,5 +18,6 @@ export class NavbarComponent implements OnInit {
   logout() {
     console.log('logout');
     localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
   }
 }

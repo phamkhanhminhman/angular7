@@ -1,0 +1,32 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card" *ngFor="let user of results">
+                <div class="card-header">Profile</div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="">Name: </label>
+                        <span class="card-text"> {{user.name}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Email: </label>
+                        <span class="card-text"> {{user.email}}</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Gender: </label>
+                        <span class="card-text" *ngIf="user.gender==0"> Male</span>
+                        <span class="card-text" *ngIf="user.gender==1"> Female</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Description: </label>
+                        <span class="card-text"> {{user.description}}</span>
+                    </div>
+                    <div class="form-group">
+                            <label for="">Group: </label>
+                            <span class="card-text"> {{user.groupID}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

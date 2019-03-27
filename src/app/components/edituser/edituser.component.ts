@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from 'src/app/services/http.service';
-import { config } from 'src/app/config';
+import { config } from 'src/app/config/config';
 @Component({
   selector: 'app-edituser',
   templateUrl: './edituser.component.html',

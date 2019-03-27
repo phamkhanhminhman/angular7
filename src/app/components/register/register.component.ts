@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpService } from 'src/app/services/http.service';
-import { config } from 'src/app/config';
+import { config } from 'src/app/config/config';
 import { HttpClient } from '@angular/common/http';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

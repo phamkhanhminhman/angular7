@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/services';
 import { PagerService } from 'src/app/services/pager.service';
 import { HttpClient } from '@angular/common/http';
-import { config } from 'src/app/config';
+import { config } from 'src/app/config/config';
 import { Router } from '@angular/router';
 
 

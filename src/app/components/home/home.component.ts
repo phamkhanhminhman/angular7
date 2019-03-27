@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { config } from 'src/app/config';
+import { config } from 'src/app/config/config';
 
 @Component({
   selector: 'app-home',

@@ -31,7 +31,7 @@ export class PagerService {
     }
     // calculate start-end index
     const startIndex = (currentPage - 1) * pageSize;
-    const endIndex = startIndex + pageSize + 1;
+    const endIndex = startIndex + pageSize - 1;
 
     // create an array of pages
     const pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => startPage + i);

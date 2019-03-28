@@ -17,7 +17,7 @@ export class ListuserComponent implements OnInit {
   orderBy = '';
   id;
   length;
-  currentPage;
+  currentPage = 1;
   searchText = '';
   public error = null;
   // array of all items to be paged
@@ -53,6 +53,12 @@ export class ListuserComponent implements OnInit {
   }
   handlePagination(data, page) {
     this.allItems = data['data'];
+    console.log(this.allItems);
+    if (this.allItems.length === 0) {
+      console.log(this.currentPage);
+      
+      this.setPage(this.currentPage - 1);
+    }
     this.length = data['length'];
     this.pager = this.pagerService.getPager(this.length, page);
   }
@@ -61,11 +67,15 @@ export class ListuserComponent implements OnInit {
     this.router.navigateByUrl('/err');
   }
   deleteUser(id) {
-    if (confirm('Are you sure delete id =  ' + id)) {
+
+    if (confirm('Are you sure delete id =  ' + id + 'current page = ' + this.currentPage)) {
       return this.httpService.delete(config.userUrl + id).subscribe(
-        data => this.get(),
+        data => this.handleDelete(data, this.currentPage),
       );
     }
+  }
+  handleDelete(data, currentPage) {
+    this.setPage(currentPage);
   }
   handleSearch() {
     if (this.searchText === '') {

@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-9">
-            <h2>List: {{pager.totalItems}} user</h2>
+            <h2>List User</h2>
                 <form action="" method="post">
                 <label for="">Search</label>
                 <input type="text" class="form-control" name="searchText" [(ngModel)]="searchText" (keyup)="handleSearch()" placeholder="Tim kiem theo name, email">
@@ -11,7 +11,7 @@
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th (click)="sortName()">Name <i class="fa fa-sort"></i></th>
+                        <th>Name</th>
                         <th>Gender</th>
                         <th>Email </th>
                         <th>Image</th>

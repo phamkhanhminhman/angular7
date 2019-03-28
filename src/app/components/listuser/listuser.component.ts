@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { config } from 'src/app/config/config';
 import { Router } from '@angular/router';
 import { system } from 'src/app/config/system';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -38,29 +39,31 @@ export class ListuserComponent implements OnInit {
     this.get();
   }
   handleResponse(data) {
-    this.allItems = data['data'];
+    this.allItems = data['data'.toString()];
     console.log(this.allItems);
-    this.length = data['length'];
+    this.length = data['length'.toString()];
     this.pager = this.pagerService.getPager(this.length, 1);
     // this.setPage(1);
   }
   setPage(page: number) {
     this.currentPage = page;
-    this.httpService.get(config.userUrl + config.queryUrl + config.pageUrl + page +
-      config.pageSizeUrl + system.pageSize + config.sortUrl + this.orderBy).subscribe(
-        data => this.handlePagination(data, this.currentPage),
-      );
+    if (this.currentPage > 0) {
+      this.httpService.get(config.userUrl + config.queryUrl + this.searchText + config.pageUrl + page +
+        config.pageSizeUrl + system.pageSize + config.sortUrl + this.orderBy).subscribe(
+          data => this.handlePagination(data, this.currentPage),
+        );
+    }
   }
   handlePagination(data, page) {
-    this.allItems = data['data'];
-    console.log(this.allItems);
+    this.allItems = data['data'.toString()];
+    console.log('Text Serach nhan dc = ' + this.searchText);
+    console.log('Length nhan dc = ' + this.allItems.length);
     if (this.allItems.length === 0) {
-      console.log(this.currentPage);
-      
       this.setPage(this.currentPage - 1);
+    } else {
+      this.length = data['length'.toString()];
+      this.pager = this.pagerService.getPager(this.length, page);
     }
-    this.length = data['length'];
-    this.pager = this.pagerService.getPager(this.length, page);
   }
   handleError(error) {
     this.error = error.message;
@@ -82,30 +85,33 @@ export class ListuserComponent implements OnInit {
       this.get();
     } else {
       return this.httpService.get(config.userUrl + config.queryUrl + this.searchText +
-        config.pageUrl + config.pageSizeUrl + config.sortUrl).subscribe(
-          data => this.searchPagination(data));
+        config.pageUrl + config.pageSizeUrl + system.pageSize + config.sortUrl + this.orderBy).subscribe(
+          data => this.searchPagination(data, this.currentPage));
     }
   }
-  searchPagination(data) {
-    this.allItems = data['data'];
-    this.pager = this.pagerService.getPager(this.allItems.length);
+  searchPagination(data, currentPage) {
+    this.allItems = data['data'.toString()];
+    console.log('so KQ retrun khi search = ' + this.allItems.length);
+    this.pager = this.pagerService.getPager(this.allItems.length, this.currentPage);
+    this.setPage(currentPage);
   }
   sortGroup() {
     this.submit = !this.submit;
     if (this.submit) {
-      this.orderBy = 'asc';
+      this.orderBy = config.asc;
       this.httpService.get(config.userUrl + config.queryUrl + this.searchText +
         config.pageUrl + config.pageSizeUrl + system.pageSize + config.sortUrl + this.orderBy).subscribe(
           data => this.handleSort(data));
     } else {
-      this.orderBy = 'desc';
+      this.orderBy = config.desc;
       this.httpService.get(config.userUrl + config.queryUrl + this.searchText +
         config.pageUrl + config.pageSizeUrl + system.pageSize + config.sortUrl + this.orderBy).subscribe(
           data => this.handleSort(data));
     }
   }
   handleSort(data) {
-    this.allItems = data['data'];
-    this.pager = this.pagerService.getPager(this.length, 1);
+    this.allItems = data['data'.toString()];
+    this.pager = this.pagerService.getPager(this.length, this.currentPage);
+    this.setPage(this.currentPage);
   }
 }

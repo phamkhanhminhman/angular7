@@ -9,6 +9,7 @@ export class PagerService {
   constructor() { }
   getPager(totalItems: number, currentPage: number = 1, pageSize: number = system.pageSize) {
     const totalPages = Math.ceil(totalItems / pageSize);
+    console.log('tong so page: ' + totalPages);
     if (currentPage < 1) {
               currentPage = 1;
     } else if (currentPage > totalPages) {
@@ -25,9 +26,12 @@ export class PagerService {
         if (currentPage <= 6) {
             startPage = 1;
             endPage = 10;
-        } else {
+        } else if (currentPage + 4 >= totalPages) {
             startPage = totalPages - 9;
             endPage = totalPages;
+        } else {
+            startPage = currentPage - 5;
+            endPage = currentPage + 4;
         }
     }
     // calculate start-end index

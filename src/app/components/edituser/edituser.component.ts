@@ -34,7 +34,6 @@ export class EdituserComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.form.gender);
-    
     return this.httpService.update(config.userUrl + this.id, this.form).subscribe(
       data => this.updateResponse(data),
     );

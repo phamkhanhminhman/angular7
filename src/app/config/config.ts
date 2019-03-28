@@ -6,5 +6,7 @@ export const config = {
     pageUrl : '&page=',
     pageSizeUrl : '&pageSize=',
     sortUrl : '&sort=',
+    asc : 'asc',
+    desc : 'desc',
 
   };

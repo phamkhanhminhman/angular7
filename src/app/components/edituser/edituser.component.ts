@@ -37,7 +37,7 @@ export class EdituserComponent implements OnInit {
     console.log(this.results);
   }
   onSubmit() {
-    console.log(this.form.gender);
+    console.log('name nhan dc ' + this.form.name);
     if (this.form.groupID === null) {
       this.form.groupID = this.results[0].groupID;
     }
@@ -55,6 +55,12 @@ export class EdituserComponent implements OnInit {
   handleResponse(data) {
     console.log(data);
     this.results = data['data'];
+    this.form.name = this.results[0].name;
+    this.form.description = this.results[0].description;
+    this.form.email = this.results[0].image;
+    this.form.gender = this.results[0].gender;
+    this.form.groupID = this.results[0].groupID;
+
     console.log(this.results);
   }
   updateResponse(data) {

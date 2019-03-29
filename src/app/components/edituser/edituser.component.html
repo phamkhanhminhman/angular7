@@ -1,4 +1,4 @@
-<div class="mt-4 col-6 offset-2" *ngFor="let user of results">
+<div class="mt-4 col-6 offset-2" >
     <div class="card">
         <div class="card-header">Edit User</div>
         <div class="card-body">
@@ -9,7 +9,7 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Name</label>
                     <div class="col-8">
-                        <input type="text" name="name" class="form-control" placeholder="{{user.name}}"
+                        <input type="text" name="name" class="form-control" 
                             [(ngModel)]="form.name" #name="ngModel" required>
                         <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
                             <div [hidden]="!name.errors.required">Name is Required</div>
@@ -38,14 +38,14 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Description</label>
                     <div class="col-8">
-                        <textarea name="description" class="form-control" placeholder="{{user.description}}"
+                        <textarea name="description" class="form-control" 
                             [(ngModel)]="form.description" id="" cols="60" rows="2" maxlength="140"
                             placeholder="Max enter 140 character"></textarea>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Image</label>
-                    <img src="{{user.image}}" alt="" width="80px" height="80px">
+                    <img src="" alt="" width="80px" height="80px">
                     <br>
                 </div>
                 <div class="form-group row">

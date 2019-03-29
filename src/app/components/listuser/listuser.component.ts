@@ -20,6 +20,7 @@ export class ListuserComponent implements OnInit {
   length;
   currentPage = 1;
   searchText = '';
+  pageSize = 5;
   public error = null;
   // array of all items to be paged
   private allItems: any[];
@@ -31,25 +32,30 @@ export class ListuserComponent implements OnInit {
   constructor(private httpService: HttpService, private router: Router, private pagerService: PagerService) { }
   get() {
     this.httpService.get(config.userUrl + config.queryUrl + config.pageUrl +
-      config.pageSizeUrl + system.pageSize + config.sortUrl).subscribe(
+      config.pageSizeUrl + this.pageSize + config.sortUrl).subscribe(
         data => this.handleResponse(data),
       );
   }
   ngOnInit() {
     this.get();
   }
+  showList() {
+    console.log(this.pageSize);
+    this.pagerService.pSize(this.pageSize);
+    this.setPage(this.currentPage);
+  }
   handleResponse(data) {
     this.allItems = data['data'.toString()];
     console.log(this.allItems);
     this.length = data['length'.toString()];
-    this.pager = this.pagerService.getPager(this.length, 1);
+    this.pager = this.pagerService.getPager(this.length, 1, this.pageSize);
     // this.setPage(1);
   }
   setPage(page: number) {
     this.currentPage = page;
     if (this.currentPage > 0) {
       this.httpService.get(config.userUrl + config.queryUrl + this.searchText + config.pageUrl + page +
-        config.pageSizeUrl + system.pageSize + config.sortUrl + this.orderBy).subscribe(
+        config.pageSizeUrl + this.pageSize + config.sortUrl + this.orderBy).subscribe(
           data => this.handlePagination(data, this.currentPage),
         );
     }
@@ -62,7 +68,7 @@ export class ListuserComponent implements OnInit {
       this.setPage(this.currentPage - 1);
     } else {
       this.length = data['length'.toString()];
-      this.pager = this.pagerService.getPager(this.length, page);
+      this.pager = this.pagerService.getPager(this.length, page, this.pageSize);
     }
   }
   handleError(error) {
@@ -92,7 +98,7 @@ export class ListuserComponent implements OnInit {
   searchPagination(data, currentPage) {
     this.allItems = data['data'.toString()];
     console.log('so KQ retrun khi search = ' + this.allItems.length);
-    this.pager = this.pagerService.getPager(this.allItems.length, this.currentPage);
+    this.pager = this.pagerService.getPager(this.allItems.length, this.currentPage, this.pageSize);
     this.setPage(currentPage);
   }
   sortGroup() {
@@ -111,7 +117,7 @@ export class ListuserComponent implements OnInit {
   }
   handleSort(data) {
     this.allItems = data['data'.toString()];
-    this.pager = this.pagerService.getPager(this.length, this.currentPage);
+    this.pager = this.pagerService.getPager(this.length, this.currentPage, this.pageSize);
     this.setPage(this.currentPage);
   }
 }

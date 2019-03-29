@@ -5,9 +5,13 @@ import { system } from '../config/system';
   providedIn: 'root'
 })
 export class PagerService {
-
+pageSize;
   constructor() { }
-  getPager(totalItems: number, currentPage: number = 1, pageSize: number = system.pageSize) {
+  pSize(pS: any) {
+    this.pageSize = pS;
+    console.log('page size o service ' + this.pageSize);
+  }
+  getPager(totalItems: number, currentPage: number = 1, pageSize: number) {
     const totalPages = Math.ceil(totalItems / pageSize);
     console.log('tong so page: ' + totalPages);
     if (currentPage < 1) {

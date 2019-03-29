@@ -29,11 +29,9 @@
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Group</label>
                     <div class="col-8">
-                        <select class="form-control" name="groupID" [(ngModel)]="form.groupID">
-                            <option value="null">Choose here</option>
-                            <option selected value="1">Group 1</option>
-                            <option value="2">Group 2</option>
-                            <option value="3">Group 3</option>
+                        <select class="form-control" name="groupID" [(ngModel)]="form.groupID" >
+                            <option value="null">Choose Here</option>
+                            <option value="{{group.groupID}}" *ngFor="let group of groups">{{group.groupName}}</option>
                         </select>
                     </div>
                 </div>

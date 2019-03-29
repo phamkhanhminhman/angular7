@@ -11,6 +11,7 @@ import { config } from 'src/app/config/config';
 export class EdituserComponent implements OnInit {
   id;
   results;
+  groups;
   public error = null;
   public form = {
     email: null,
@@ -30,6 +31,9 @@ export class EdituserComponent implements OnInit {
       data => this.handleResponse(data),
       error => this.handleError(error)
     );
+    this.httpService.get(config.url + 'group').subscribe(
+      data => this.handleGroup(data)
+    );
     console.log(this.results);
   }
   onSubmit() {
@@ -37,6 +41,10 @@ export class EdituserComponent implements OnInit {
     return this.httpService.update(config.userUrl + this.id, this.form).subscribe(
       data => this.updateResponse(data),
     );
+  }
+  handleGroup(data) {
+    this.groups = data['data'];
+    console.log(this.groups);
   }
   handleResponse(data) {
     console.log(data);

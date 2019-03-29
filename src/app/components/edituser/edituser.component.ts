@@ -38,6 +38,12 @@ export class EdituserComponent implements OnInit {
   }
   onSubmit() {
     console.log(this.form.gender);
+    if (this.form.groupID === null) {
+      this.form.groupID = this.results[0].groupID;
+    }
+    if (this.form.gender === null) {
+      this.form.gender = this.results[0].gender;
+    }
     return this.httpService.update(config.userUrl + this.id, this.form).subscribe(
       data => this.updateResponse(data),
     );

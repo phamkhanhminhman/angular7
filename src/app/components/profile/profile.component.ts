@@ -28,5 +28,4 @@ export class ProfileComponent implements OnInit {
     this.results = data['data'];
     console.log(this.results);
   }
-
 }

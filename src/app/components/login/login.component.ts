@@ -13,7 +13,8 @@ import { config } from 'src/app/config/config';
 export class LoginComponent implements OnInit {
   public form = {
     email: null,
-    password: null
+    password: null,
+    captcha: null
   };
   public error = null;
   constructor(private http: HttpClient,
@@ -29,6 +30,10 @@ export class LoginComponent implements OnInit {
       error => this.handleError(error)
     );
   }
+  resolved(captchaResponse: string) {
+    this.form.captcha = captchaResponse;
+    console.log(this.form.captcha);
+  }
   handleResponse(data) {
     if (data.message === 'Login thành công') {
       alert(data.message);
@@ -38,9 +43,10 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/home');
       console.log(data);
     } else {
-      alert(data.message);
+      alert('Captcha Required');
     }
   }
   handleError(error) {
+      alert('failed123')
   }
 }

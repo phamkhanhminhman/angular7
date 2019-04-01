@@ -20,6 +20,7 @@ import { ChangepassComponent } from './components/changepass/changepass.componen
 import { ImportComponent } from './components/import/import.component';
 import {HttpIntercept} from './interceptor/http.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
+import { RecaptchaModule } from 'ng-recaptcha';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +41,8 @@ import { ProfileComponent } from './components/profile/profile.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RecaptchaModule
   ],
   providers: [LoginService, CheckLoginGuard, HttpService, {provide: HTTP_INTERCEPTORS, useClass: HttpIntercept, multi: true}],
   bootstrap: [AppComponent]

@@ -19,7 +19,10 @@ export class EdituserComponent implements OnInit {
     gender: null,
     groupID: null,
     description: null,
+    image: File
   };
+  imgURL;
+  imgURL2;
   constructor(private route: ActivatedRoute,
               private http: HttpClient,
               private httpService: HttpService,
@@ -38,12 +41,6 @@ export class EdituserComponent implements OnInit {
   }
   onSubmit() {
     console.log('name nhan dc ' + this.form.name);
-    if (this.form.groupID === null) {
-      this.form.groupID = this.results[0].groupID;
-    }
-    if (this.form.gender === null) {
-      this.form.gender = this.results[0].gender;
-    }
     return this.httpService.update(config.userUrl + this.id, this.form).subscribe(
       data => this.updateResponse(data),
     );
@@ -60,7 +57,7 @@ export class EdituserComponent implements OnInit {
     this.form.email = this.results[0].image;
     this.form.gender = this.results[0].gender;
     this.form.groupID = this.results[0].groupID;
-
+    this.imgURL = this.results[0].image;
     console.log(this.results);
   }
   updateResponse(data) {
@@ -73,5 +70,16 @@ export class EdituserComponent implements OnInit {
   }
   handleError(error) {
     this.error = error.message;
+  }
+  preview(files) {
+    const reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    console.log(files[0]);
+    // preview image
+    reader.onload = (event) => {
+      this.imgURL2 = reader.result;
+    };
+    this.form.image = files[0];
+    // console.log(this.form.image);
   }
 }

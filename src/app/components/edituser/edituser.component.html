@@ -20,8 +20,7 @@
                     <label for="" class="col-sm-2 col-form-label">Gender</label>
                     <div class="col-8">
                         <select class="form-control" name="gender" [(ngModel)]="form.gender">
-                            <option value="null">Choose here</option>
-                            <option selected value="0">Male</option>
+                            <option value="0">Male</option>
                             <option value="1">Female</option>
                         </select>
                     </div>
@@ -30,7 +29,6 @@
                     <label for="" class="col-sm-2 col-form-label">Group</label>
                     <div class="col-8">
                         <select class="form-control" name="groupID" [(ngModel)]="form.groupID" >
-                            <option value="null">Choose Here</option>
                             <option value="{{group.groupID}}" *ngFor="let group of groups">{{group.groupName}}</option>
                         </select>
                     </div>
@@ -45,12 +43,17 @@
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">Image</label>
-                    <img src="" alt="" width="80px" height="80px">
+                    <img [src]="imgURL" height="80px" width="80px"  *ngIf="imgURL" style="margin-left: 15px">
                     <br>
                 </div>
                 <div class="form-group row">
                     <label for="" class="col-sm-2 col-form-label">  </label>
-                    <input type="file" name="image">
+                    <input type="file" name="image" accept='image/*' (change)="preview(file.files)" #file>
+                </div>
+                <div class="form-group row">
+                    <label for="" class="col-sm-2 col-form-label">New Image</label>
+                    <img [src]="imgURL2" height="200" *ngIf="imgURL2">
+                    <br>
                 </div>
                 <div class="form-group row">
                     <div class="col-4 offset-2">

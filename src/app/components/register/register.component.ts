@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
       gender: ['', Validators.required],
-      image: ['', Validators.required],
+      image: [''],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
@@ -39,16 +39,28 @@ export class RegisterComponent implements OnInit {
     if (this.registerForm.invalid) {
       return;
     } else {
-      const formData = new FormData();
-      formData.append('email', this.email);
-      formData.append('name', this.name);
-      formData.append('password', this.password);
-      formData.append('gender', this.gender);
-      formData.append('image', this.image);
-      return this.http.post(config.userUrl, formData).subscribe(
-        data => this.handleResponse(data),
-        error => this.handleError(error)
-      );
+      if (this.image == null) {
+        const formData = new FormData();
+        formData.append('email', this.email);
+        formData.append('name', this.name);
+        formData.append('password', this.password);
+        formData.append('gender', this.gender);
+        return this.http.post(config.userUrl, formData).subscribe(
+          data => this.handleResponse(data),
+          error => this.handleError(error)
+        );
+      } else {
+        const formData = new FormData();
+        formData.append('email', this.email);
+        formData.append('name', this.name);
+        formData.append('password', this.password);
+        formData.append('gender', this.gender);
+        formData.append('image', this.image);
+        return this.http.post(config.userUrl, formData).subscribe(
+          data => this.handleResponse(data),
+          error => this.handleError(error)
+        );
+      }
     }
   }
   handleResponse(data) {

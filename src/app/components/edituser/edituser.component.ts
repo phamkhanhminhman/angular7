@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { HttpService } from 'src/app/services/http.service';
 import { config } from 'src/app/config/config';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-edituser',
   templateUrl: './edituser.component.html',
@@ -14,13 +15,13 @@ export class EdituserComponent implements OnInit {
   groups;
   public error = null;
   public form = {
-    email: null,
     name: null,
     gender: null,
     groupID: null,
     description: null,
     image: File
   };
+  image = null;
   imgURL;
   imgURL2;
   constructor(private route: ActivatedRoute,
@@ -41,6 +42,12 @@ export class EdituserComponent implements OnInit {
   }
   onSubmit() {
     console.log('name nhan dc ' + this.form.name);
+    // const formData = new FormData();
+    // formData.append('name', this.form.name);
+    // formData.append('gender', this.form.gender);
+    // formData.append('image', this.image);
+    // formData.append('description', this.form.description);
+    // formData.append('groupID', this.form.groupID);
     return this.httpService.update(config.userUrl + this.id, this.form).subscribe(
       data => this.updateResponse(data),
     );
@@ -54,7 +61,6 @@ export class EdituserComponent implements OnInit {
     this.results = data['data'];
     this.form.name = this.results[0].name;
     this.form.description = this.results[0].description;
-    this.form.email = this.results[0].image;
     this.form.gender = this.results[0].gender;
     this.form.groupID = this.results[0].groupID;
     this.imgURL = this.results[0].image;
@@ -80,6 +86,7 @@ export class EdituserComponent implements OnInit {
       this.imgURL2 = reader.result;
     };
     this.form.image = files[0];
+    this.image = files[0];
     // console.log(this.form.image);
   }
 }

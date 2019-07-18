@@ -21,6 +21,8 @@ import { ImportComponent } from './components/import/import.component';
 import {HttpIntercept} from './interceptor/http.interceptor';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { BookingComponent } from './booking/booking/booking.component';
+import { BookingCatalogComponent } from './booking/booking-catalog/booking-catalog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +37,8 @@ import { RecaptchaModule } from 'ng-recaptcha';
     ChangepassComponent,
     ImportComponent,
     ProfileComponent,
+    BookingComponent,
+    BookingCatalogComponent,
   ],
   imports: [
     BrowserModule,

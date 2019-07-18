@@ -10,6 +10,8 @@ import { ListuserComponent } from './components/listuser/listuser.component';
 import { ChangepassComponent } from './components/changepass/changepass.component';
 import { ImportComponent } from './components/import/import.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { BookingComponent } from './booking/booking/booking.component';
+
 
 const routes: Routes = [
   {path: '',  component: LoginComponent},
@@ -21,7 +23,12 @@ const routes: Routes = [
   {path: 'changepass', component: ChangepassComponent, canActivate: [CheckLoginGuard]},
   {path: 'import', component: ImportComponent, canActivate: [CheckLoginGuard]},
   {path: 'profile/:id', component: ProfileComponent},
+  {
+    path: 'booking', component: BookingComponent
+  },
   {path: '**', component: NotfoundComponent},
+  
+  
 
 ];
 
